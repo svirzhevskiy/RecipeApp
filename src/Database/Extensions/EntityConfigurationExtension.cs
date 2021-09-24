@@ -18,6 +18,8 @@ namespace Database.Extensions
             builder.Property(x => x.IsDeleted)
                 .HasDefaultValue(false);
 
+            builder.HasQueryFilter(x => x.IsDeleted == false);
+
             return builder;
         }
     }

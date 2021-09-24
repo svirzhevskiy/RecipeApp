@@ -17,6 +17,13 @@ namespace Database.EntityConfigurations
 
             builder.Property(x => x.Instructions)
                 .IsRequired();
+
+            builder
+                .HasMany(x => x.Ingredients)
+                .WithMany(y => y.Recipes);
+
+            builder
+                .HasOne(x => x.Image);
         }
     }
 }
