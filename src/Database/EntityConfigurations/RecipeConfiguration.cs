@@ -19,11 +19,9 @@ namespace Database.EntityConfigurations
                 .IsRequired();
 
             builder
-                .HasMany(x => x.Ingredients)
-                .WithMany(y => y.Recipes);
-
-            builder
                 .HasOne(x => x.Image);
+
+            builder.Property(x => x.CreatedAt).IsRequired();
         }
     }
 }

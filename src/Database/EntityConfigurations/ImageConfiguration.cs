@@ -13,6 +13,12 @@ namespace Database.EntityConfigurations
 
             builder.Property(x => x.Content)
                 .IsRequired();
+
+            builder.Property(x => x.Name)
+                .HasMaxLength(300);
+            
+            builder.Property(x => x.Extension)
+                .HasMaxLength(5);
         }
     }
 }
