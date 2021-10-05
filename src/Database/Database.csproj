@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="5.2.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Core\Application\Application.csproj" />
       <ProjectReference Include="..\Core\Domain\Domain.csproj" />
     </ItemGroup>
 

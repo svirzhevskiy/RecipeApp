@@ -7,7 +7,7 @@ namespace Domain
     {
         public string Title { get; set; } = "";
         public string Instructions { get; set; } = "";
-        public List<string> Ingredients { get; set; } = new List<string>();
+        public List<string> Ingredients { get; set; } = new();
         public DateTime CreatedAt { get; set; }
 
         public Guid ImageId { get; set; }
