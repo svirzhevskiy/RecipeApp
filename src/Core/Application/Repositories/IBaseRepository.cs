@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Ardalis.Specification;
+using Application.Specification;
 using Domain;
 
 namespace Application.Repositories

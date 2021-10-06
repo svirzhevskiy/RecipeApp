@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Repositories;
-using Ardalis.Specification;
-using Ardalis.Specification.EntityFrameworkCore;
+using Application.Specification;
+using Database.Specification;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -65,8 +65,7 @@ namespace Database.Repositories
         
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
-            var evaluator = new SpecificationEvaluator();
-            return evaluator.GetQuery(_context.Set<T>().AsQueryable(), spec);
+            return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
         }
     }
 }
