@@ -8,6 +8,11 @@ namespace Application.Specification
     {
         public Expression<Func<T, bool>> Criteria { get; }
 
+        public Specification()
+        {
+            
+        }
+
         public Specification(Expression<Func<T, bool>> criteria)
         {
             Criteria = criteria;
