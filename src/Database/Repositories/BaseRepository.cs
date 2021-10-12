@@ -43,7 +43,8 @@ namespace Database.Repositories
 
         public Task Delete(T entity, CancellationToken cancellationToken = default)
         {
-            _context.Set<T>().Remove(entity);
+            entity.IsDeleted = true;
+            _context.Entry(entity).State = EntityState.Modified;
             return _context.SaveChangesAsync(cancellationToken);
         }
 
