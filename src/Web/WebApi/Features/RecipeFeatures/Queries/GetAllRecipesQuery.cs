@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Exceptions;
 using Application.Repositories;
 using Application.Specification.RecipeSpecifications;
 using Domain;
