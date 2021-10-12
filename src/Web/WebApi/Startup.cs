@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Application.Features.RecipeFeatures.Queries;
 using MediatR;
 using Serilog;
 using WebApi.Configuration;
@@ -26,7 +27,7 @@ namespace WebApi
         {
             services.AddDatabase(Configuration);
             
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetAssembly(typeof(GetAllRecipesQuery)));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Application.Features.RecipeFeatures.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Features.RecipeFeatures.Queries;
 
 namespace WebApi.Controllers
 {

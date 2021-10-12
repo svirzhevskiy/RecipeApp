@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Exceptions;
 using Application.Repositories;
 using Application.Specification.RecipeSpecifications;
 using Domain;
 using MediatR;
 
-namespace WebApi.Features.RecipeFeatures.Queries
+namespace Application.Features.RecipeFeatures.Queries
 {
     public class GetAllRecipesQuery : IRequest<IEnumerable<Recipe>>
     {
