@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using MediatR;
+using Serilog;
 using WebApi.Configuration;
 using WebApi.Middlewares;
 
@@ -44,6 +45,7 @@ namespace WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
 
+            app.UseSerilogRequestLogging();
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();

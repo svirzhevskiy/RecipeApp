@@ -6,12 +6,14 @@ using Application.Exceptions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace WebApi.Middlewares
 {
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
+        private static readonly ILogger Log = Serilog.Log.ForContext<ExceptionMiddleware>();
 
         public ExceptionMiddleware(RequestDelegate next)
         {
@@ -38,7 +40,9 @@ namespace WebApi.Middlewares
                 }
                 else
                 {
-                    var devMessage = $"{exception.Message} \n {exception.StackTrace}";
+                    var devMessage = $"\n EXCEPTION: {exception.Message} \n {exception.StackTrace}";
+                    // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
+                    Log.Error(devMessage);
 
                     if (env.IsDevelopment())
                     {
