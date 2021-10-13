@@ -23,8 +23,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataSeeder", "utils\DataSee
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "src\Web\WebApi\WebApi.csproj", "{0E882799-C0AC-42A9-A10A-90C3768D7BBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "src\Core\Models\Models.csproj", "{58DFE21D-039C-465D-9024-6EBF9A6B3F01}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,10 +49,6 @@ Global
 		{0E882799-C0AC-42A9-A10A-90C3768D7BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E882799-C0AC-42A9-A10A-90C3768D7BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E882799-C0AC-42A9-A10A-90C3768D7BBF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58DFE21D-039C-465D-9024-6EBF9A6B3F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58DFE21D-039C-465D-9024-6EBF9A6B3F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58DFE21D-039C-465D-9024-6EBF9A6B3F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58DFE21D-039C-465D-9024-6EBF9A6B3F01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,7 +62,6 @@ Global
 		{EC13183D-362B-4FBF-B744-7DA1B0912775} = {34A85AED-882A-4046-9F92-8A57FBFC7AB8}
 		{CAD4EB2B-3682-472C-8380-0959494B56FB} = {83C4F03F-B597-4CED-8265-2C1C84BCC64A}
 		{0E882799-C0AC-42A9-A10A-90C3768D7BBF} = {451F7C99-8AAE-4D40-BCF6-728F703750B8}
-		{58DFE21D-039C-465D-9024-6EBF9A6B3F01} = {FD9603BD-D816-4BD1-9778-059573459DD4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C73ACE4-C192-416A-8E5D-9B944B4C67F6}
