@@ -18,5 +18,6 @@ namespace Application.Exceptions
         public static AppException RecipeNotFound => new(404, "Recipe not found");
         public static AppException NotFound => new(404, "Entity not found");
         public static AppException InvalidToken => new(401, "invalid token");
+        public static AppException InvalidModel => new(400, "invalid model");
     }
 }

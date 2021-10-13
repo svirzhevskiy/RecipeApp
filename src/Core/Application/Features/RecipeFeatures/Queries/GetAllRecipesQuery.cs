@@ -37,17 +37,17 @@ namespace Application.Features.RecipeFeatures.Queries
             }
 
             public async Task<IEnumerable<Recipe>> Handle(
-                GetAllRecipesQuery query, 
+                GetAllRecipesQuery request, 
                 CancellationToken cancellationToken = default)
             {
                 var total = await _repository.Count(
-                    new FilteredByStringRecipes(query.SearchString),
+                    new FilteredByStringRecipes(request.SearchString),
                     cancellationToken);
 
-                var skip = (query.Page - 1) * query.ItemsOnPage;
+                var skip = (request.Page - 1) * request.ItemsOnPage;
                 
                 var recipes = await _repository.List(
-                    new PagedOrderedRecipes(skip, query.ItemsOnPage),
+                    new PagedOrderedRecipes(skip, request.ItemsOnPage),
                     cancellationToken);
 
                 return recipes;
