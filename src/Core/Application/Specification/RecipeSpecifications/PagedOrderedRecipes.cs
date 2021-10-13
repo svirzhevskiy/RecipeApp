@@ -9,7 +9,6 @@ namespace Application.Specification.RecipeSpecifications
             int skip, 
             int take,
             bool descendingOrder = true)
-        : base()
         {
 #if WithImages
             AddInclude(x => x.Image);

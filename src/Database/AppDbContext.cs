@@ -11,9 +11,9 @@ namespace Database
             Database.EnsureCreated();
         }
 
-        public DbSet<Image> Images { get; set; }
-        public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Image> Images { get; set; } = null!;
+        public DbSet<Ingredient> Ingredients { get; set; } = null!;
+        public DbSet<Recipe> Recipes { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

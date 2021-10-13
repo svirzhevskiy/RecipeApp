@@ -6,7 +6,7 @@ namespace Application.Specification
 {
     public class Specification<T> : ISpecification<T>
     {
-        public Expression<Func<T, bool>> Criteria { get; }
+        public Expression<Func<T, bool>> Criteria { get; } = null!;
 
         public Specification()
         {
