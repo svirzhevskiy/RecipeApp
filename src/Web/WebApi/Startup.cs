@@ -6,7 +6,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Application.Features.RecipeFeatures.Queries;
+using FluentValidation.AspNetCore;
 using MediatR;
+using Models.Recipe;
 using Serilog;
 using WebApi.Configuration;
 using WebApi.Middlewares;
@@ -26,10 +28,16 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDatabase(Configuration);
-            
+
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(RecipeMapping)));
             services.AddMediatR(Assembly.GetAssembly(typeof(GetAllRecipesQuery)));
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(op =>
+                {
+                    op.RegisterValidatorsFromAssemblyContaining<RecipeValidator>();
+                });
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
