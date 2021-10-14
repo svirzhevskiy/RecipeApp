@@ -1,4 +1,5 @@
 ﻿using Application.Features.RecipeFeatures.Commands.Create;
+using Application.Features.RecipeFeatures.Queries;
 using AutoMapper;
 using Domain;
 
@@ -8,8 +9,9 @@ namespace Application.Features.RecipeFeatures
     {
         public RecipeMapping()
         {
-            CreateMap<CreateRecipeCommand, Recipe>()
-                .ReverseMap();
+            CreateMap<CreateRecipeCommand, Recipe>();
+
+            CreateMap<Recipe, RecipeModel>();
         }
     }
 }

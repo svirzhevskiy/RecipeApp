@@ -5,10 +5,7 @@ namespace Application.Specification.RecipeSpecifications
 {
     public sealed class PagedOrderedRecipes : Specification<Recipe>
     {
-        public PagedOrderedRecipes(
-            int skip, 
-            int take,
-            bool descendingOrder = true)
+        public PagedOrderedRecipes(int skip, int take, bool descendingOrder = true)
         {
 #if WithImages
             AddInclude(x => x.Image);
@@ -26,13 +23,8 @@ namespace Application.Specification.RecipeSpecifications
             ApplyPaging(skip, take);
         }
         
-        public PagedOrderedRecipes(
-            int skip, 
-            int take,
-            string searchString,
-            bool descendingOrder = true)
-        : base(x => x.Ingredients.Contains(searchString) || 
-                    x.Title.Contains(searchString))
+        public PagedOrderedRecipes(int skip, int take, string searchString, bool descendingOrder = true)
+        : base(x => x.Ingredients.Contains(searchString) || x.Title.Contains(searchString))
         {
 #if WithImages
             AddInclude(x => x.Image);

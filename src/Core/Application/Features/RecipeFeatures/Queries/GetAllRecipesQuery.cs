@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Repositories;
 using Application.Specification.RecipeSpecifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
 namespace Application.Features.RecipeFeatures.Queries
 {
-    public class GetAllRecipesQuery : IRequest<IEnumerable<Recipe>>
+    public class GetAllRecipesQuery : IRequest<PageModel<RecipeModel>>
     {
         private int _itemsOnPage = 10;
         private int _page = 1;
@@ -27,16 +28,18 @@ namespace Application.Features.RecipeFeatures.Queries
 
         public string SearchString { get; set; } = "";
         
-        public class Handler : IRequestHandler<GetAllRecipesQuery, IEnumerable<Recipe>>
+        public class Handler : IRequestHandler<GetAllRecipesQuery, PageModel<RecipeModel>>
         {
             private readonly IBaseRepository<Recipe> _repository;
+            private readonly IMapper _mapper;
 
-            public Handler(IBaseRepository<Recipe> repository)
+            public Handler(IBaseRepository<Recipe> repository, IMapper mapper)
             {
                 _repository = repository;
+                _mapper = mapper;
             }
 
-            public async Task<IEnumerable<Recipe>> Handle(
+            public async Task<PageModel<RecipeModel>> Handle(
                 GetAllRecipesQuery request, 
                 CancellationToken cancellationToken = default)
             {
@@ -47,10 +50,16 @@ namespace Application.Features.RecipeFeatures.Queries
                 var skip = (request.Page - 1) * request.ItemsOnPage;
                 
                 var recipes = await _repository.List(
-                    new PagedOrderedRecipes(skip, request.ItemsOnPage),
+                    new PagedOrderedRecipes(skip, request.ItemsOnPage, request.SearchString),
                     cancellationToken);
 
-                return recipes;
+                return new PageModel<RecipeModel>
+                {
+                    Page = request.Page,
+                    ItemsOnPage = request.ItemsOnPage,
+                    TotalItems = total,
+                    Items = recipes.Select(x => _mapper.Map<RecipeModel>(x))
+                };
             }
         }
     }
