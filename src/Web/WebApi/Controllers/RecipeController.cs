@@ -26,6 +26,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> Create(
             CreateRecipeCommand command,
             CancellationToken cancellationToken)
