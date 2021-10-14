@@ -5,10 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Application.Behaviors;
 using Application.Features.RecipeFeatures;
 using Application.Features.RecipeFeatures.Commands.Create;
 using Application.Features.RecipeFeatures.Queries;
-using FluentValidation.AspNetCore;
+using FluentValidation;
 using MediatR;
 using Serilog;
 using WebApi.Configuration;
@@ -29,15 +30,13 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDatabase(Configuration);
+            
+            services.AddControllers();
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(RecipeMapping)));
             services.AddMediatR(Assembly.GetAssembly(typeof(GetAllRecipesQuery)));
-
-            services.AddControllers()
-                .AddFluentValidation(op =>
-                {
-                    op.RegisterValidatorsFromAssemblyContaining<CreateRecipeCommandValidator>();
-                });
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(CreateRecipeCommandValidator)));
             
             services.AddSwaggerGen(c =>
             {

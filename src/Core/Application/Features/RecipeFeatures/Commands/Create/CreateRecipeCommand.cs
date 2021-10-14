@@ -6,7 +6,6 @@ using Application.Repositories;
 using AutoMapper;
 using Domain;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.RecipeFeatures.Commands.Create
 {
@@ -16,7 +15,7 @@ namespace Application.Features.RecipeFeatures.Commands.Create
         public string Instructions { get; set; } = "";
         public List<string> Ingredients { get; set; } = new();
         public DateTime CreatedAt { get; set; }
-        public IFormFile File { get; set; } = null!;
+        public string File { get; set; } = "";
 
         public class Handler : IRequestHandler<CreateRecipeCommand, Recipe>
         {

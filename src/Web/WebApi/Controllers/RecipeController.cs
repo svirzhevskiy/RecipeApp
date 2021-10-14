@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Application.Features.RecipeFeatures.Commands.Create;
 using Application.Features.RecipeFeatures.Queries;
 using MediatR;
@@ -18,13 +19,16 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get([FromQuery]GetAllRecipesQuery request)
-            => Ok(await _mediator.Send(request));
+        public async Task<IActionResult> Get(
+            [FromQuery]GetAllRecipesQuery request,
+            CancellationToken cancellationToken)
+            => Ok(await _mediator.Send(request, cancellationToken));
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create(CreateRecipeCommand command)
-            => Ok(await _mediator.Send(command));
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> Create(
+            CreateRecipeCommand command,
+            CancellationToken cancellationToken)
+            => Created("", await _mediator.Send(command, cancellationToken));
     }
 }
