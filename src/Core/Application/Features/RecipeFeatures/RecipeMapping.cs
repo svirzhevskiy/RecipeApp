@@ -9,7 +9,8 @@ namespace Application.Features.RecipeFeatures
     {
         public RecipeMapping()
         {
-            CreateMap<CreateRecipeCommand, Recipe>();
+            CreateMap<CreateRecipeCommand, Recipe>()
+                .ForMember(x => x.Image, y => y.Ignore());
 
             CreateMap<Recipe, RecipeModel>()
                 .ForMember(x => x.Image, y => y.MapFrom(s => s.Image.Content));

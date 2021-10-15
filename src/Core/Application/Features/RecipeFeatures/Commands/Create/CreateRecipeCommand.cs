@@ -20,12 +20,14 @@ namespace Application.Features.RecipeFeatures.Commands.Create
         public class Handler : IRequestHandler<CreateRecipeCommand, Recipe>
         {
             private readonly IBaseRepository<Recipe> _repository;
+            private readonly IBaseRepository<Image> _imageRepository;
             private readonly IMapper _mapper;
 
-            public Handler(IBaseRepository<Recipe> repository, IMapper mapper)
+            public Handler(IBaseRepository<Recipe> repository, IMapper mapper, IBaseRepository<Image> imageRepository)
             {
                 _repository = repository;
                 _mapper = mapper;
+                _imageRepository = imageRepository;
             }
 
             public async Task<Recipe> Handle(
@@ -33,6 +35,13 @@ namespace Application.Features.RecipeFeatures.Commands.Create
                 CancellationToken cancellationToken)
             {
                 var entity = _mapper.Map<Recipe>(request);
+
+                if (string.IsNullOrEmpty(request.Image))
+                {
+                    var image = new Image { Content = Convert.FromBase64String(request.Image) };
+
+                    entity.Image = await _imageRepository.Create(image, cancellationToken);
+                }
 
                 var recipe = await _repository.Create(entity, cancellationToken);
 

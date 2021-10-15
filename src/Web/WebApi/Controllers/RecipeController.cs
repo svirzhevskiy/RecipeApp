@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Features.RecipeFeatures.Commands.Create;
 using Application.Features.RecipeFeatures.Commands.Delete;
+using Application.Features.RecipeFeatures.Commands.Update;
 using Application.Features.RecipeFeatures.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -38,8 +39,16 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(
-            [FromQuery]Guid id,
+            Guid id,
             CancellationToken cancellationToken) 
             => Ok(await _mediator.Send(new DeleteRecipeCommand(id), cancellationToken));
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update(
+            UpdateRecipeCommand command,
+            CancellationToken cancellationToken)
+            => Ok(await _mediator.Send(command, cancellationToken));
     }
 }
