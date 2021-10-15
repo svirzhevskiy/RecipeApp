@@ -1,5 +1,6 @@
-﻿using Domain;
-//#define WithImages
+﻿#define WithImages
+
+using Domain;
 
 namespace Application.Specification.RecipeSpecifications
 {

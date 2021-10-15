@@ -11,7 +11,8 @@ namespace Application.Features.RecipeFeatures
         {
             CreateMap<CreateRecipeCommand, Recipe>();
 
-            CreateMap<Recipe, RecipeModel>();
+            CreateMap<Recipe, RecipeModel>()
+                .ForMember(x => x.Image, y => y.MapFrom(s => s.Image.Content));
         }
     }
 }

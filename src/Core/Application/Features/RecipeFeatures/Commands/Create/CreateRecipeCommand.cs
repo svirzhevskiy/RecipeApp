@@ -15,7 +15,7 @@ namespace Application.Features.RecipeFeatures.Commands.Create
         public string Instructions { get; set; } = "";
         public List<string> Ingredients { get; set; } = new();
         public DateTime CreatedAt { get; set; }
-        public string File { get; set; } = "";
+        public string Image { get; set; } = "";
 
         public class Handler : IRequestHandler<CreateRecipeCommand, Recipe>
         {
