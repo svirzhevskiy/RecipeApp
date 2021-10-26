@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Application.Features.RecipeFeatures;
 using Application.Features.RecipeFeatures.Commands.Create;
+using AspNetCoreRateLimit;
 using FluentValidation;
 using Serilog;
 using WebApi.Configuration;
@@ -29,6 +30,8 @@ namespace WebApi
             services.AddDatabase(Configuration);
 
             services.AddCache(Configuration);
+
+            services.AddRateLimiting(Configuration);
 
             services.AddControllers();
 
@@ -57,6 +60,8 @@ namespace WebApi
 
             app.UseHttpsRedirection();
 
+            app.UseIpRateLimiting();
+            
             app.UseRouting();
 
             app.UseAuthorization();
