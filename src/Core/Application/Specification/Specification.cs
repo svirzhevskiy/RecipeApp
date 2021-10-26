@@ -26,7 +26,7 @@ namespace Application.Specification
         
         public int Take { get; private set; }
         public int Skip { get; private set; }
-        public bool IsPagingEnabled { get; private set; } = false;
+        public bool IsPagingEnabled { get; private set; }
 
         protected virtual void AddInclude(Expression<Func<T, object>> expression)
             => Includes.Add(expression);

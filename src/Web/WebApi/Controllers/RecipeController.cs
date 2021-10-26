@@ -8,7 +8,6 @@ using Application.Features.RecipeFeatures.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace WebApi.Controllers
 {
@@ -24,9 +23,9 @@ namespace WebApi.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(int page, int itemsOnPage,
-            CancellationToken cancellationToken, string? searchString = "")
+            CancellationToken cancellationToken, string? searchString)
             => Ok(await _mediator.Send(
-                new GetAllRecipesQuery { Page = page, ItemsOnPage = itemsOnPage, SearchString = searchString },
+                new GetAllRecipesQuery { Page = page, ItemsOnPage = itemsOnPage, SearchString = searchString! },
                 cancellationToken));
 
         [HttpPost]

@@ -11,7 +11,6 @@ using Application.Features.RecipeFeatures.Commands.Create;
 using Application.Features.RecipeFeatures.Queries;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using WebApi.Configuration;
 using WebApi.Middlewares;
