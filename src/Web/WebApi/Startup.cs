@@ -11,6 +11,7 @@ using Application.Features.RecipeFeatures.Commands.Create;
 using Application.Features.RecipeFeatures.Queries;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using WebApi.Configuration;
 using WebApi.Middlewares;
@@ -30,11 +31,14 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDatabase(Configuration);
-            
+
+            services.AddCache(Configuration);
+
             services.AddControllers();
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(RecipeMapping)));
             services.AddMediatR(Assembly.GetAssembly(typeof(GetAllRecipesQuery)));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(CreateRecipeCommandValidator)));
             

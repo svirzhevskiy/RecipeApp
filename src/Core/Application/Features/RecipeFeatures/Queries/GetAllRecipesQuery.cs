@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Features.Common;
 using Application.Repositories;
 using Application.Specification.RecipeSpecifications;
 using AutoMapper;
@@ -9,8 +11,12 @@ using MediatR;
 
 namespace Application.Features.RecipeFeatures.Queries
 {
-    public class GetAllRecipesQuery : IRequest<PageModel<RecipeModel>>
+    public class GetAllRecipesQuery : IRequest<PageModel<RecipeModel>>, ICacheableMediatrQuery
     {
+        public bool BypassCache => !string.IsNullOrWhiteSpace(SearchString);
+        public string CacheKey => $"Recipes-{Page}-{ItemsOnPage}";
+        public TimeSpan? SlidingExpiration { get; set; }
+        
         private int _itemsOnPage = 10;
         private int _page = 1;
 
@@ -27,7 +33,7 @@ namespace Application.Features.RecipeFeatures.Queries
         }
 
         public string SearchString { get; set; } = "";
-        
+
         public class Handler : IRequestHandler<GetAllRecipesQuery, PageModel<RecipeModel>>
         {
             private readonly IBaseRepository<Recipe> _repository;
@@ -40,7 +46,7 @@ namespace Application.Features.RecipeFeatures.Queries
             }
 
             public async Task<PageModel<RecipeModel>> Handle(
-                GetAllRecipesQuery request, 
+                GetAllRecipesQuery request,
                 CancellationToken cancellationToken = default)
             {
                 var total = await _repository.Count(
@@ -48,7 +54,7 @@ namespace Application.Features.RecipeFeatures.Queries
                     cancellationToken);
 
                 var skip = (request.Page - 1) * request.ItemsOnPage;
-                
+
                 var recipes = await _repository.List(
                     new PagedOrderedRecipes(skip, request.ItemsOnPage, request.SearchString),
                     cancellationToken);

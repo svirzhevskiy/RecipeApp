@@ -25,7 +25,10 @@ namespace Application.Specification.RecipeSpecifications
         }
         
         public PagedOrderedRecipes(int skip, int take, string searchString, bool descendingOrder = true)
-        : base(x => x.Ingredients.Contains(searchString) || x.Title.Contains(searchString))
+            : base(string.IsNullOrWhiteSpace(searchString) 
+                ? x => true
+                : x => x.Ingredients.Contains(searchString) 
+                       || x.Title.Contains(searchString))
         {
 #if WithImages
             AddInclude(x => x.Image);
