@@ -5,12 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using Application.Behaviors;
 using Application.Features.RecipeFeatures;
 using Application.Features.RecipeFeatures.Commands.Create;
-using Application.Features.RecipeFeatures.Queries;
 using FluentValidation;
-using MediatR;
 using Serilog;
 using WebApi.Configuration;
 using WebApi.Middlewares;
@@ -36,9 +33,7 @@ namespace WebApi
             services.AddControllers();
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(RecipeMapping)));
-            services.AddMediatR(Assembly.GetAssembly(typeof(GetAllRecipesQuery)));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddApplicationMediatr();
             services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(CreateRecipeCommandValidator)));
             
             services.AddSwaggerGen(c =>
